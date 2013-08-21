@@ -483,8 +483,23 @@ describe Admin::ContentController do
 
 
     describe 'merge action' do
-      article2 = Factory(:article, :id => 12, :permalink => "hehe", :guid => { Factory.next(:guid) } )
-      @article.id should be == @article2.id
+
+      before do
+        @article2 = Factory(:article, :title => "zzy and me", :body => "Da jiang you", :permalink => "zzy")
+
+      end
+    
+      it 'should call model method merge_with' do   
+#        @article.should_receive(:merge_with)
+#        post :merge, 'merge_with' => @article2.id, 'id' => @article.id
+      end
+
+      it 'should redirect to content page' do
+        File.open('/tmp/test.html','w'){|file| file.write(response.body)} 
+        post :merge, 'merge_with' => @article2.id, 'id' => @article.id
+        response.should redirect_to(:action => 'index')
+        
+      end
 
     end
 

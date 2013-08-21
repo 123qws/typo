@@ -7,9 +7,9 @@ Feature: Merge aritcle
     Given the blog is set up
     Given a blogger is created
     Given the following contents exist:
-    | title | author | body             | published | id |
-    | braid | sw     | I am a publisher | t         |  2 | 
-    | limbo | gxy    | I love this game | t         |  3 |
+    | title | author | body             | published | id  |
+    | braid | sw     | I am a publisher | t         |  3 | 
+    | limbo | gxy    | I love this game | t         |  4 |
     
   Scenario: A non-admin cannot merge two articles
     When a blogger is logged into the admin panel
@@ -19,17 +19,18 @@ Feature: Merge aritcle
     And I press "Publish"
     Then I should be on the admin content page
     And I follow "Foobar"
-    And show me the page
     Then I should not see "Merge Articles"
 
   Scenario: When articles are merged, the merged article should contain the text of both previous articles
     When I am logged into the admin panel
     When I am on the content page    
     And I follow "braid"
+    And show me the page
     Then I should see "Merge Articles"
-    Then I fill in "merge_with" with "3"
+    Then I fill in "merge_with" with "4"
     And I press "Merge"
     Then I should be on the content page
+    And show me the page
     And I should see "braid"
     And I should not see "limbo"
     Then I follow "braid"

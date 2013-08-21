@@ -71,6 +71,13 @@ class Article < Content
     end
   end
 
+
+  def merge_with(other_id)
+    other_article = Article.find(other_id)
+    update_attribute(:body, body + other_article.body)
+    Article.destroy(other_id)
+  end
+
   def set_permalink
     return if self.state == 'draft'
     self.permalink = self.title.to_permalink if self.permalink.nil? or self.permalink.empty?

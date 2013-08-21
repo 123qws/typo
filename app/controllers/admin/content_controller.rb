@@ -52,11 +52,17 @@ class Admin::ContentController < Admin::BaseController
     redirect_to :action => 'index'
   end
 
-  def merge
-    #debugger
-    params[:id]
-    params[:merge_with]
-    # redirect_to :action => 'index'
+  def merge  
+    if current_user.admin?
+      if Article.find_by_id(params[:merge_with])
+        Article.find(params[:id]).merge_with(params[:merge_with])
+      else
+        flash[:notice] = _("Not found that article ID")
+      end
+    else
+      flash[:notice] = _("You are not administration!")
+    end
+    redirect_to :action => 'index'
   end
 
   def insert_editor
