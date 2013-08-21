@@ -644,6 +644,15 @@ describe Admin::ContentController do
     it_should_behave_like 'new action'
     it_should_behave_like 'destroy action'
 
+    describe 'merge article' do
+
+      it 'can not take merge action' do   
+        #@article2 = Factory(:article, :title => "zzy and me", :body => "Da jiang you", :permalink => "zzy")
+        #post :merge, 'merge_with' => @article2.id, 'id' => @article.id
+        #response.should contain("You are not administration!")
+      end
+    end
+
     describe 'edit action' do
 
       it "should redirect if edit article doesn't his" do

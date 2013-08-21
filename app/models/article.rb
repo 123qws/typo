@@ -75,6 +75,9 @@ class Article < Content
   def merge_with(other_id)
     other_article = Article.find(other_id)
     update_attribute(:body, body + other_article.body)
+    other_article.comments.each do |comment|
+      self.comments << comment
+    end
     Article.destroy(other_id)
   end
 
