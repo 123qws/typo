@@ -6,7 +6,6 @@ class Admin::UsersController < Admin::BaseController
   end
 
   def new
-    debugger
     @user = User.new
     @user.attributes = params[:user]
     @user.text_filter = TextFilter.find_by_name(this_blog.text_filter)
