@@ -1,3 +1,20 @@
 <% @page_heading = _('New article') %>
 
 <%= render "admin/shared/edit", { :form_type => "article", :form_action => { :action => "new", :id => @article.id , :class => ('autosave')} } %>
+
+
+<% if current_user.admin? %>
+<%= form_tag :action=>"merge", :id => @article.id do %>
+
+  <h3>Merge Articles</h3>
+  <div class='editor-left'>
+    <label for="merge_article">Article ID</label>
+    <div class='input'>
+      <%= text_field('merge', 'with', {:class => 'span5', :name => "merge_with"}) %>
+    </div>
+    <%= submit_tag 'Merge', :class => "btn" %>
+  </div>
+
+
+<% end %>
+<% end %>

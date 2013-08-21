@@ -6,7 +6,9 @@ Feature: Create Blog
   Scenario: Create blog page shown
     Given I am on the home page
     Then I should see "Welcome"
+    And show me the page
     And I should see "My Shiny Weblog!"
+
 
   Scenario: Create blog page not shown when blog created
     Given the blog is set up

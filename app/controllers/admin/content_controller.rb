@@ -52,6 +52,13 @@ class Admin::ContentController < Admin::BaseController
     redirect_to :action => 'index'
   end
 
+  def merge
+    #debugger
+    params[:id]
+    params[:merge_with]
+    # redirect_to :action => 'index'
+  end
+
   def insert_editor
     editor = 'visual'
     editor = 'simple' if params[:editor].to_s == 'simple'

@@ -31,6 +31,12 @@ module WithinHelpers
 end
 World(WithinHelpers)
 
+Given /^the following contents exist:$/ do |contents_table|
+  contents_table.hashes.each do |content|
+    Article.create!(content)
+  end
+end
+
 Given /^the blog is set up$/ do
   Blog.default.update_attributes!({:blog_name => 'Teh Blag',
                                    :base_url => 'http://localhost:3000'});
@@ -41,6 +47,15 @@ Given /^the blog is set up$/ do
                 :profile_id => 1,
                 :name => 'admin',
                 :state => 'active'})
+end
+
+Given /^a blogger is created$/ do
+  User.create!({:login =>'123qws',
+                 :password => '199388',
+                 :email => '123qws@gmail.com',
+                 :profile_id => "2",
+                 :name => 'sw',
+                 :state => 'active'})
 end
 
 And /^I am logged into the admin panel$/ do
@@ -55,7 +70,23 @@ And /^I am logged into the admin panel$/ do
   end
 end
 
-# Single-line step scoper
+Given /^I am logged out$/ do
+  visit '/accounts/logout'
+end
+
+Given /^a blogger is logged into the admin panel$/ do
+  visit '/accounts/login'
+  fill_in 'user_login', :with => '123qws'
+  fill_in 'user_password', :with => '199388'
+  click_button 'Login'
+  if page.respond_to? :should
+    page.should have_content('Login successful')
+  else
+    assert page.has_content?('Login successful')
+  end
+end
+
+# single-line step scoper
 When /^(.*) within (.*[^:])$/ do |step, parent|
   with_scope(parent) { When step }
 end

@@ -481,6 +481,13 @@ describe Admin::ContentController do
     it_should_behave_like 'destroy action'
     it_should_behave_like 'autosave action'
 
+
+    describe 'merge action' do
+      article2 = Factory(:article, :id => 12, :permalink => "hehe", :guid => { Factory.next(:guid) } )
+      @article.id should be == @article2.id
+
+    end
+
     describe 'edit action' do
 
       it 'should edit article' do

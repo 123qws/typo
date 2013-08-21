@@ -1,3 +1,4 @@
+
 <li id="attachment_<%= attachment_num -%>"<% if hidden %> style="display: none;"<% end %>>
   <%= file_field 'attachments', "filename_#{attachment_num}" -%>
   <%= link_to_function(_("Remove"),
@@ -27,4 +28,5 @@
     <%= link_to_remote "+ #{resource.filename}", :url => { :action => "resource_add", :id => @article.id, :resource_id => resource.id}, :update => 'resources' %><br />
   <% end %>
 </li>
+
 <% end %>
